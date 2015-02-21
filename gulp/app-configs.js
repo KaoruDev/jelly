@@ -11,7 +11,9 @@ module.exports = {
   sass: {
     src: paths.styles + '/*.scss',
     dest: paths.stylesDest,
-    settings: {}
+    settings: {
+      includePaths: ['bower_components/foundation/scss']
+    }
   },
   bundles: [{
     entries: paths.scripts + 'test.js',
