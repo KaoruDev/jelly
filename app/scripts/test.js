@@ -1,4 +1,4 @@
 var _ = require('lodash');
 
-alert("HELLO WORLD");
+alert("BYE WORLD");
 

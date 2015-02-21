@@ -12,7 +12,7 @@ var browserifyTask = function (callback, devMode) {
   bundleQueue = bundleConfigs.length;
 
   var browserifyFile = function (bundleConfig) {
-    if (devMode || true) {
+    if (devMode) {
       bundleConfig = _.extend({}, bundleConfig, watchify.args, { debug: true });
     }
 
@@ -37,7 +37,7 @@ var browserifyTask = function (callback, devMode) {
         .pipe(connect.reload());
     };
 
-    if (devMode || true) {
+    if (devMode) {
       var watcher = watchify(browserify);
       watcher.on('update', bundle);
     }
@@ -46,7 +46,6 @@ var browserifyTask = function (callback, devMode) {
     return bundle();
   };
 
-  utils.log("Bundle Configs: ", bundleConfigs);
   _.each(bundleConfigs, browserifyFile);
 };
 
