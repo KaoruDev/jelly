@@ -1,0 +1,9 @@
+{
+  "name": "decap",
+  "dependencies": {
+    "gulp": "~3.8.11"
+  },
+  "devDependencies": {
+    "require-dir": "~0.1.0"
+  }
+}
