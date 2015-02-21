@@ -1,9 +1,18 @@
 {
   "name": "decap",
-  "dependencies": {
-    "gulp": "~3.8.11"
-  },
+  "browser": {},
+  "browerfiy": {},
   "devDependencies": {
-    "require-dir": "~0.1.0"
+    "browser-sync": "^1.6.0",
+    "browserify": "~9.0.1",
+    "gulp": "~3.8.11",
+    "gulp-connect": "~2.2.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sourcemaps": "~1.3.0",
+    "gulp-util": "~3.0.3",
+    "lodash": "^3.3.0",
+    "require-dir": "~0.1.0",
+    "vinyl-source-stream": "~1.0.0",
+    "watchify": "~2.3.0"
   }
 }
