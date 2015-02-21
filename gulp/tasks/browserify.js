@@ -3,9 +3,11 @@ var utils = require('gulp-util');
 var Browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var connect = require('gulp-connect');
 var bundleConfigs = require('../app-configs.js').bundles;
 var handleError = require('../utils/handle-error.js');
+var sourcemaps = require('gulp-sourcemaps');
 var _ = require('lodash');
 
 var browserifyTask = function (callback, devMode) {
@@ -28,11 +30,19 @@ var browserifyTask = function (callback, devMode) {
 
     var bundle = function () {
       utils.log("Bundle Initiatied");
-      return browserify
+
+      var stream = browserify
         .bundle()
         .on('error', handleError)
-        .pipe(source(bundleConfig.outputName))
-        .pipe(gulp.dest(bundleConfig.dest))
+        .pipe(source(bundleConfig.outputName));
+
+      if (devMode) {
+        stream = stream.pipe(buffer())
+          .pipe(sourcemaps.init({loadMaps: true}))
+          .pipe(sourcemaps.write('./'));
+      }
+
+      stream.pipe(gulp.dest(bundleConfig.dest))
         .on('end', bundleDone)
         .pipe(connect.reload());
     };
