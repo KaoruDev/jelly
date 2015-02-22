@@ -6,6 +6,7 @@
     "bower": "^1.3.12",
     "browser-sync": "^1.6.0",
     "browserify": "~9.0.1",
+    "browserify-shim": "^3.8.3",
     "gulp": "~3.8.11",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-connect": "~2.2.0",
@@ -15,11 +16,20 @@
     "gulp-uglify": "^1.1.0",
     "gulp-util": "~3.0.3",
     "gulp-watch": "^4.1.1",
-    "jstify": "^0.8.0",
     "lodash": "^3.3.0",
     "require-dir": "~0.1.0",
+    "universal-jst": "^1.0.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.3.0"
+  },
+  "browser": {
+    "templates": "./build/scripts/templates.js"
+  },
+  "browserify": {
+    "transform": [ "browserify-shim" ]
+  },
+  "browserify-shim": {
+    "templates": { "exports": "JST" }
   }
 }

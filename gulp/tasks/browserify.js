@@ -1,14 +1,18 @@
 var gulp = require('gulp');
-var utils = require('gulp-util');
+var announce = require('../utils/announce.js');
 var Browserify = require('browserify');
 var watchify = require('watchify');
+var watch = require('gulp-watch');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var connect = require('gulp-connect');
-var bundleConfigs = require('../app-configs.js').bundles;
+var configs = require('../app-configs.js');
+var bundleConfigs = configs.bundles;
+var templateConfigs = configs.templates
 var handleError = require('../utils/handle-error.js');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
+var JSTCompiler = require('./jst-compiler.js');
 var _ = require('lodash');
 
 var browserifyTask = function (callback, devMode) {
@@ -20,10 +24,9 @@ var browserifyTask = function (callback, devMode) {
     }
 
     var browserify = Browserify(bundleConfig);
-    browserify.transform('jstify', { engine: 'lodash'});
-
     var bundleDone = function () {
-      utils.log("Bundle Complete");
+      announce('Bundle Complete.');
+
       if (bundleQueue) {
         bundleQueue--;
         if (bundleQueue === 0) callback(); // tells gulp task is done
@@ -31,8 +34,7 @@ var browserifyTask = function (callback, devMode) {
     };
 
     var bundle = function () {
-      utils.log("Bundle Initiatied");
-
+      announce('Bundling...');
       var stream = browserify
         .bundle()
         .on('error', handleError)
@@ -57,9 +59,22 @@ var browserifyTask = function (callback, devMode) {
 
     if (devMode) {
       var watcher = watchify(browserify);
-      watcher.on('update', bundle);
-    }
+      watcher.on('update', function (files, args) {
+        var compiledTemplates = _.any(files, function (file) {
+          return file.search("scripts\/templates.js") >= 0
+        });
 
+        // Rebundle only if there were no changes to templates.js
+        if (!compiledTemplates) {
+          bundle();
+        }
+      });
+
+      gulp.src(templateConfigs.src + '*jst')
+        .pipe(watch(templateConfigs.src + '*.jst', {}, function () {
+          JSTCompiler(bundle);
+        }));
+    }
 
     return bundle();
   };
@@ -67,6 +82,6 @@ var browserifyTask = function (callback, devMode) {
   _.each(bundleConfigs, browserifyFile);
 };
 
-gulp.task('browserify', browserifyTask);
+gulp.task('browserify', ['JST'], browserifyTask);
 module.exports = browserifyTask;
 
