@@ -7,5 +7,5 @@ var subView = require('./test/sub-view.js');
 ////var templates = require('./templates.js');
 //var subView = require('./test/sub-view.js');
 document.write(JST['jelly_welcome']());
-//subView();
+subView();
 
