@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var announce = require('../utils/announce.js');
-var Browserify = require('browserify');
+var browserify = require('browserify');
 var watchify = require('watchify');
 var watch = require('gulp-watch');
 var source = require('vinyl-source-stream');
@@ -23,7 +23,7 @@ var browserifyTask = function (callback, devMode) {
       bundleConfig = _.extend({}, bundleConfig, watchify.args, { debug: true });
     }
 
-    var browserify = Browserify(bundleConfig);
+    var bundler = browserify(bundleConfig);
     var bundleDone = function () {
       announce('Bundle Complete.');
 
@@ -35,7 +35,7 @@ var browserifyTask = function (callback, devMode) {
 
     var bundle = function () {
       announce('Bundling...');
-      var stream = browserify
+      var stream = bundler
         .bundle()
         .on('error', handleError)
         .pipe(source(bundleConfig.outputName));
@@ -58,7 +58,7 @@ var browserifyTask = function (callback, devMode) {
     };
 
     if (devMode) {
-      var watcher = watchify(browserify);
+      var watcher = watchify(bundler);
       watcher.on('update', function (files, args) {
         var compiledTemplates = _.any(files, function (file) {
           return file.search("scripts\/templates.js") >= 0
