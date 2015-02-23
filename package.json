@@ -35,5 +35,8 @@
     "templates": {
       "exports": "JST"
     }
+  },
+  "dependencies": {
+    "gulp-awspublish": "^1.0.2"
   }
 }

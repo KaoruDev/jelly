@@ -1,3 +1,7 @@
+var fs = require('fs');
+
+var aws = JSON.parse(fs.readFileSync('./.aws.json'));
+
 var appDir = './app/'; // Relative to project directory
 var build = './build/';
 var paths = {
@@ -25,6 +29,13 @@ module.exports = {
     dest: paths.scriptsDest,
     outputName: 'test.js',
     ignore: build + 'scripts/templates.js'
-  }]
+  }],
+  aws: {
+    bucket: {
+      key: aws.akid,
+      secret: aws.sak,
+      bucket: aws.bucket
+    }
+  }
 };
 
