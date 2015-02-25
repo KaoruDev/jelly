@@ -22,7 +22,7 @@ module.exports = {
   },
   templates: {
     src: paths.templates,
-    dest: paths.scriptsDest + 'templates.js'
+    dest: build + 'tmp/templates.js'
   },
   bundles: [{
     entries: paths.scripts + 'test.js',
