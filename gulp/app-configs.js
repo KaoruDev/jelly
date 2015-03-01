@@ -1,4 +1,5 @@
 var fs = require('fs');
+var _ = require('lodash');
 
 var aws = JSON.parse(fs.readFileSync('./.aws.json'));
 
@@ -12,6 +13,10 @@ var paths = {
   templates: appDir + 'scripts/templates/'
 };
 
+var jsFiles = [
+  'test.js'
+];
+
 module.exports = {
   sass: {
     src: paths.styles + '/*.scss',
@@ -24,12 +29,14 @@ module.exports = {
     src: paths.templates,
     dest: build + 'tmp/templates.js'
   },
-  bundles: [{
-    entries: paths.scripts + 'test.js',
-    dest: paths.scriptsDest,
-    outputName: 'test.js',
-    ignore: build + 'scripts/templates.js'
-  }],
+  bundles: _.map(jsFiles, function (file) {
+    return {
+      entries: paths.scripts + file,
+      dest: paths.scriptsDest,
+      outputName: file,
+      ignore: build + 'scripts/templates.js'
+    };
+  }),
   aws: {
     bucket: {
       key: aws.akid,
