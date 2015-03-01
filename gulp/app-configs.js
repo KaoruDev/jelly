@@ -46,8 +46,11 @@ module.exports = {
   },
   fonts: {
     blobs: [
+      // List of font files
     ]
-   }
-  }
+  },
+  vendorCss: [
+    // list of vendor css
+  ]
 };
 
