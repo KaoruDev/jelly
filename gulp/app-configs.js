@@ -36,6 +36,11 @@ module.exports = {
       secret: aws.sak,
       bucket: aws.bucket
     }
+  },
+  fonts: {
+    blobs: [
+    ]
+   }
   }
 };
 
