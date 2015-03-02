@@ -1,7 +1,7 @@
 {
   "name": "jelly",
   "browser": {
-    "templates": "./build/tmp/templates.js"
+    "templates": "./tmp/templates.js"
   },
   "browerfiy": {},
   "devDependencies": {

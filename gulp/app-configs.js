@@ -30,7 +30,7 @@ module.exports = {
   },
   templates: {
     src: paths.templates,
-    dest: build + 'tmp/templates.js'
+    dest: 'tmp/templates.js'
   },
   bundles: _.map(jsFiles, function (file) {
     return {
