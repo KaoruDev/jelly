@@ -7,7 +7,7 @@ var connect = require('gulp-connect');
 var autoprefixer = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
 
-gulp.task('sass', function () {
+gulp.task('sass', ['vendor-css'], function () {
   return gulp.src(configs.src)
     .pipe(sourcemaps.init())
     .pipe(sass(configs.settings))

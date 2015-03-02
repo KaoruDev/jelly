@@ -22,7 +22,10 @@ module.exports = {
     src: paths.styles + '/*.scss',
     dest: paths.stylesDest,
     settings: {
-      includePaths: ['bower_components/foundation/scss']
+      includePaths: [
+        'bower_components/foundation/scss',
+        'tmp/vendor.scss'
+      ]
     }
   },
   templates: {
