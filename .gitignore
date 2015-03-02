@@ -5,4 +5,5 @@ build/
 dist/
 .aws.json
 .awspublish-jelly-static
+tmp/
 
