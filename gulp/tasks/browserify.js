@@ -16,7 +16,8 @@ var JSTCompiler = require('./jst-compiler.js');
 var _ = require('lodash');
 
 var browserifyTask = function (callback, devMode) {
-  bundleQueue = bundleConfigs.length;
+  var bundleQueue = bundleConfigs.length;
+  var watchingTemplates = false;
 
   var browserifyFile = function (bundleConfig) {
     if (devMode) {
@@ -70,10 +71,13 @@ var browserifyTask = function (callback, devMode) {
         }
       });
 
-      gulp.src(templateConfigs.src + '*jst')
-        .pipe(watch(templateConfigs.src + '*.jst', {}, function () {
-          JSTCompiler(bundle);
-        }));
+      if (!watchingTemplates) {
+        watchingTemplates = true;
+        gulp.src(templateConfigs.src + '*jst')
+          .pipe(watch(templateConfigs.src + '*.jst', {}, function () {
+            JSTCompiler(bundle);
+          }));
+      }
     }
 
     return bundle();
