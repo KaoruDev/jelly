@@ -99,27 +99,39 @@ Open the new html page and add:
 </html>
 ```
 
-Now if you restart `gulp` by typing `gulp` on your command line and go to `http://localhost:9000/welcome.html` you'll see an empty html page. Now if you add to your `welcome.js` file:
+Restart `gulp` and go to `http://localhost:9000/welcome.html` you'll see an empty html page. Now if you add to your `welcome.js` file:
 ```
 alert('Jelly be working');
 ```
 
 you'll notice the page will refresh automatically and the alert box will pop up! Now you're running!
 
-Connecting with a dev server
+Developing on a server
 --------------
 
-Let's get the server which is serving up our html page running. Add this script tag to the page
+Because Jelly outputs static files it doesn't need a server to run. You can have static html files hosted somewhere with references to the Jelly scripts are you're golden. So how do you develop against a server that serves dynamic html pages? Welp the same way you would on static pages! Run both your server and Jelly along side each other. Simply add:
+
 
 ```
 <script src="http://localhost:9000/scripts/welcome.js"></script>
 ```
-If you refresh the html page you will see a 404 error in the browser's console. That's because we're not running the Jelly server that serves up our static scripts / style sheets.
+
+And tada! it works. You don't have to worry about setting up `CORS` headers on your server and Jelly takes care of `CORS` on it's end.
+
+To connect **live reload**:
+```
+<script>document.write('<script src="http://'
+    + (location.host || 'localhost').split(':')[0]
+    + ':35729/livereload.js"></'
+    + 'script>')</script>
+
+```
+
+I'm working on a script to do this automatically to hide some of the complexity, PRs welcomed! Stay tune!
 
 
 <a name="bundles"></a>Bundles
 --------
 
-
-
+`jsFiles` is a list of data-entry files you want to create. Ideally you'd create one script per page. Anything you `require` in these pages will concatenate into your output file. If you list too many files on this list, Jelly will start to slow down during development. I strongly suggest either commenting out the files you're not working on or starting a new. I know it's a pain but PRs welcomed!
 
