@@ -14,7 +14,6 @@ var paths = {
 };
 
 var jsFiles = [
-  'test.js'
 ];
 
 module.exports = {
@@ -23,8 +22,7 @@ module.exports = {
     dest: paths.stylesDest,
     settings: {
       includePaths: [
-        'bower_components/foundation/scss',
-        'tmp/vendor.scss'
+        //'tmp/vendor.scss' // uncomment to import vendor css files
       ]
     }
   },
@@ -37,7 +35,7 @@ module.exports = {
       entries: paths.scripts + file,
       dest: paths.scriptsDest,
       outputName: file,
-      ignore: build + 'scripts/templates.js'
+      ignore: './tmp/templates.js'
     };
   }),
   aws: {
