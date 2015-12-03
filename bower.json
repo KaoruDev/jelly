@@ -1,6 +1,0 @@
-{
-  "name": "jelly",
-  "dependencies": {
-    "foundation": "~5.5.1"
-  }
-}
