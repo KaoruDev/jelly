@@ -15,6 +15,20 @@ var ws = require('webpack-stream');
 
 //////////////////////////////////////////////////
 //
+//               Webpack Prod
+//
+//////////////////////////////////////////////////
+//
+gulp.task('webpack:prod', ['clean:scripts'], function () {
+  gulp.src(paths.scripts + 'index.js')
+    .pipe(ws(webpackConfigs.prod, webpack, function (err, stats) {
+      handleWebpackStats(err, stats);
+    }))
+    .pipe(gulp.dest(paths.dist + 'scripts'));
+});
+
+//////////////////////////////////////////////////
+//
 //               Webpack Dev
 //
 //////////////////////////////////////////////////

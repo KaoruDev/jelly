@@ -11,7 +11,7 @@ gulp.task('dev', ['sass'], function () {
     server: paths.dist,
   });
 
-  watch(`${paths.styles}/**/*.scss`, function () {
+  watch(`${paths.styles}**/*.scss`, function () {
     devSass().pipe(browserSync.stream());
   });
 });
