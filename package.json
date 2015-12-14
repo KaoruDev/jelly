@@ -6,7 +6,11 @@
   },
   "browerfiy": {},
   "devDependencies": {
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
     "browser-sync": "^2.10.0",
+    "del": "^2.2.0",
+    "ejs-compiled-loader": "^2.0.4",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-awspublish": "^1.0.2",
@@ -20,8 +24,11 @@
     "gulp-watch": "^4.1.1",
     "harmony": "0.0.1",
     "minimist": "^1.2.0",
+    "node-notifier": "^4.4.0",
     "require-dir": "~0.1.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.9",
+    "webpack-stream": "^3.0.1"
   },
   "dependencies": {}
 }

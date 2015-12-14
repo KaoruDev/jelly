@@ -4,7 +4,7 @@ var sass = require('gulp-sass');
 var utils = require('../utils/');
 var autoprefixer = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
-var paths = require('../../../tasks/configs/path-builder');
+var paths = require('../configs/shim/path-builder.js');
 
 var devSass = function () {
   return createSassStream()
@@ -12,9 +12,9 @@ var devSass = function () {
     .pipe(gulp.dest(paths.dist + '/styles/'));
 };
 
-gulp.task('sass', devSass);
+gulp.task('sass', ['clean:sass'], devSass);
 
-gulp.task('sass:prod', function () {
+gulp.task('sass:prod', ['clean:sass'], function () {
   return createSassStream()
     .pipe(minifyCss())
     .pipe(sourcemaps.write())

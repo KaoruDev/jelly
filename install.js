@@ -16,5 +16,9 @@ console.log('Creating tasks/configs/path-builder.js');
 exec('mkdir -p ./tasks/configs/', processOptions);
 exec('cp ./jelly/gulp/configs/path-builder-template.js ./tasks/configs/path-builder.js', processOptions);
 
+console.log('Creating webpack configs');
+exec('mkdir -p ./tasks/configs/webpack', processOptions);
+exec('cp ./jelly/gulp/configs/webpack-configs-template.js ./tasks/configs/webpack/configs.js', processOptions);
+
 configs.announce('May the Jelly be with you!');
 

@@ -5,8 +5,7 @@ var path = require('path');
 var repoRoot = path.join(__dirname, '../../');
 var base = {
   repoRoot: repoRoot,
-  prodDist: repoRoot + 'prod_dist',
-  base: repoRoot + 'front_end',
+  base: repoRoot,
   lib: !!args.lib,
   tmp: repoRoot + 'tmp',
 };
