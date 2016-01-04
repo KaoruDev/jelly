@@ -12,9 +12,9 @@ var devSass = function () {
     .pipe(gulp.dest(paths.dist + 'styles/'));
 };
 
-gulp.task('sass', ['clean:sass'], devSass);
+gulp.task('sass', ['clean:styles'], devSass);
 
-gulp.task('sass:prod', ['clean:sass'], function () {
+gulp.task('sass:prod', ['clean:styles'], function () {
   return createSassStream()
     .pipe(minifyCss())
     .pipe(sourcemaps.write())
