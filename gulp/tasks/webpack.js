@@ -18,7 +18,7 @@ gulp.task('webpack:prod', ['clean:scripts'], function () {
     .pipe(ws(webpackConfigs.prod, webpack, function (err, stats) {
       handleWebpackStats(err, stats);
     }))
-    .pipe(gulp.dest(paths.scripts));
+    .pipe(gulp.dest(paths.dist + 'scripts'));
 });
 
 //////////////////////////////////////////////////
@@ -32,7 +32,7 @@ gulp.task('webpack:dev', function () {
     .pipe(ws(webpackConfigs.dev, webpack, function (err, stats) {
       handleWebpackStats(err, stats);
     }))
-    .pipe(gulp.dest(paths.scripts));
+    .pipe(gulp.dest(paths.dist + 'scripts'));
 });
 
 // private ==============================

@@ -5,7 +5,7 @@ var devSass = require('./sass.js');
 var htmls = require('./htmls.js');
 var watch = require('gulp-watch');
 
-gulp.task('dev', ['htmls', 'sass'], function () {
+gulp.task('dev', ['htmls', 'sass', 'webpack:dev'], function () {
 
   browserSync.init({
     open: false,
@@ -18,6 +18,10 @@ gulp.task('dev', ['htmls', 'sass'], function () {
 
   watch(`${paths.htmls}**/\*.html`, function () {
     htmls().pipe(browserSync.stream());
+  });
+
+  watch(`${paths.dist}scripts/\**/\*.js`, function () {
+    browserSync.reload('*.js');
   });
 });
 
