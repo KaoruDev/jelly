@@ -18,12 +18,13 @@ function PathMap(base) {
   var targetRoot = args.lib ? args.lib : base.base;
 
   _.extend(this, base, {
+    dist: `${targetRoot}dist/`,
+    images: `${targetRoot}images/`,
+    htmls: `${targetRoot}htmls/`,
     root: targetRoot,
     scripts: `${targetRoot}scripts/`,
     styles: `${targetRoot}styles/`,
     specs: `${targetRoot}specs/`,
-    images: `${targetRoot}images/`,
-    dist: `${targetRoot}dist/`,
   });
 }
 
