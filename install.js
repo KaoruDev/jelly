@@ -7,8 +7,9 @@ var processOptions = { stdio: 'inherit' };
 configs.announce('Installing Jelly!');
 
 configs.announce('Installing Dependencies');
-exec('npm install --save-dev ' + configs.dependencies.join(' '), processOptions);
+//exec('npm install --save-dev ' + configs.dependencies.join(' '), processOptions);
 
+configs.announce('Setting up Jelly environment');
 console.log('Copying over gulpfile.js');
 exec('cp ./jelly/gulp/configs/gulpfile-template.js ./gulpfile.js', processOptions);
 
@@ -31,6 +32,9 @@ exec('touch ./styles/main.scss', processOptions);
 console.log('Creating htmls...');
 exec('mkdir -p ./htmls', processOptions);
 exec('touch ./htmls/index.html', processOptions);
+
+console.log('Creating gitignore');
+exec('cp ./jelly/gulp/configs/gitignore-template.txt ./.gitignore', processOptions);
 
 configs.announce('May the Jelly be with you!');
 
