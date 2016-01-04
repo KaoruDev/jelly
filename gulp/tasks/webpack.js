@@ -9,12 +9,6 @@ var ws = require('webpack-stream');
 
 //////////////////////////////////////////////////
 //
-//               Webpack Specs
-//
-//////////////////////////////////////////////////
-
-//////////////////////////////////////////////////
-//
 //               Webpack Prod
 //
 //////////////////////////////////////////////////
@@ -24,7 +18,7 @@ gulp.task('webpack:prod', ['clean:scripts'], function () {
     .pipe(ws(webpackConfigs.prod, webpack, function (err, stats) {
       handleWebpackStats(err, stats);
     }))
-    .pipe(gulp.dest(paths.dist + 'scripts'));
+    .pipe(gulp.dest(paths.scripts));
 });
 
 //////////////////////////////////////////////////
@@ -38,19 +32,10 @@ gulp.task('webpack:dev', function () {
     .pipe(ws(webpackConfigs.dev, webpack, function (err, stats) {
       handleWebpackStats(err, stats);
     }))
-    .pipe(gulp.dest(paths.dist + 'scripts'));
+    .pipe(gulp.dest(paths.scripts));
 });
 
-module.exports = execWebPack;
-
 // private ==============================
-
-function execWebPack(configs, done) {
-  return webpack(configs, function (err, stats) {
-    handleWebpackStats(err, stats);
-    done();
-  });
-}
 
 function handleWebpackStats(err, stats) {
   if (err) {
