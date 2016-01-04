@@ -3,12 +3,20 @@ var del = require('del');
 var paths = require('../configs/shim/path-builder');
 
 gulp.task('clean:styles', function (done) {
-  del.sync(paths.dist + 'styles/');
-  done();
+  del(paths.dist + 'styles/').then(function () {
+    done();
+  });
 });
 
 gulp.task('clean:scripts', function (done) {
-  del.sync(paths.dist + 'scripts/');
-  done();
+  del(paths.dist + 'scripts/').then(function () {
+    done();
+  });
+});
+
+gulp.task('clean:htmls', function (done) {
+  del(paths.dist + '**/*.html').then(function () {
+    done();
+  });
 });
 
