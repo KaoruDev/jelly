@@ -7,7 +7,7 @@ var processOptions = { stdio: 'inherit' };
 configs.announce('Installing Jelly!');
 
 configs.announce('Installing Dependencies');
-//exec('npm install --save-dev ' + configs.dependencies.join(' '), processOptions);
+exec('npm install --save-dev ' + configs.dependencies.join(' '), processOptions);
 
 configs.announce('Setting up Jelly environment');
 console.log('Copying over gulpfile.js');
