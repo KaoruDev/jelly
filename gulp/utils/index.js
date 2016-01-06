@@ -5,12 +5,18 @@ var fs = require('fs');
 module.exports = {
   announce: function () {
     gutils.log();
-    gutils.log(colors.cyan.apply(colors, arguments));
+    gutils.log(`[${colors.blue('JELLY')}] ${colors.cyan.apply(colors, arguments)}`);
     gutils.log();
   },
 
   warn: function () {
-    gutils.log(colors.yellow.apply(colors, arguments));
+    gutils.log(`[${colors.blue('JELLY')}] ${colors.yellow.apply(colors, arguments)}`);
+  },
+
+  error: function () {
+    gutils.log();
+    gutils.log(`[${colors.blue('JELLY')}] ${colors.red.apply(colors, arguments)}`);
+    gutils.log();
   },
 
   handleError: require('./handle-error'),
