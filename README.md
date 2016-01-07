@@ -5,7 +5,7 @@ Build front pages quickly!
 
 Features
 -------
-- Built to support SAP ( Single Page Apps ).
+- Built to support SPA ( Single Page Apps ).
 - Able to run along side ANY web server.
 - Leverages node's require to modularize applications.
 - Outputs two files ( per page ): a css file and a javascript file.
