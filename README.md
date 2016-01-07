@@ -45,3 +45,13 @@ jelly/install
 
 Now you should have access to `dev` task which spins up a instance of [browserSync](https://www.browsersync.io/) at localhost:3000.
 
+Update
+-------------
+If you update jelly and there has been changes to the modules in use simply run the update option in the script:
+
+```
+jelly/install.js update
+```
+
+This will not copy over the default files and instead will simply just run npm install with the jelly dev modules.
+
