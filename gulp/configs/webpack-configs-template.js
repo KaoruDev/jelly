@@ -11,7 +11,7 @@ var base = {
   },
   resolve: {
     root: paths.repoRoot,
-    fallback: [paths.repoRoot + '/lib/scripts'],
+    fallback: [paths.repoRoot + '/scripts'],
     alias: {
       helpers: paths.repoRoot + '/specs/spec_helpers',
       vendors: paths.repoRoot + '/lib/scripts/vendors',
