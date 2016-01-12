@@ -6,7 +6,7 @@ var htmls = function () {
    .pipe(gulp.dest(paths.dist));
 };
 
-gulp.task('htmls', ['clean:htmls'], htmls);
+gulp.task('htmls', htmls);
 
 module.exports = htmls;
 
