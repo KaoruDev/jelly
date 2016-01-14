@@ -1,6 +1,7 @@
 var gutils = require('gulp-util');
 var colors = gutils.colors;
 var fs = require('fs');
+var exec = require('child_process').exec;
 
 module.exports = {
   announce: function () {
@@ -31,6 +32,16 @@ module.exports = {
         }
       });
     });
+  },
 
+  checkIfOnMaster: function (callback, throwErr) {
+    exec('git rev-parse --abbrev-ref HEAD', function (err, stdout) {
+      if (stdout.toString().match(/^master\n$/)) {
+        callback();
+      } else if (throwErr) {
+        console.log(gutils.colors.red('WARNING: unable to deploy from ' + stdout.toString() + '. Please checkout master'));
+        throw('Please checkout master before deploying to production');
+      }
+    });
   },
 };
