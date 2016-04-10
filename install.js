@@ -3,41 +3,62 @@
 var configs = require('./gulp/configs');
 var exec = require('child_process').execSync;
 var processOptions = { stdio: 'inherit' };
-var args = process.argv.slice(2, process.argv.length);
+var fs = require('fs');
+
+var copyFile = function (filename, callback) {
+  fs.access(filename, function (err) {
+    if (err) {
+      callback();
+    }
+  });
+};
 
 configs.announce('Installing Jelly!');
 
 configs.announce('Installing Dependencies');
 exec('npm install --save-dev ' + configs.dependencies.join(' '), processOptions);
 
-if (args.indexOf('update') < 0) {
-  configs.announce('Setting up Jelly environment');
+configs.announce('Setting up Jelly environment');
+
+copyFile('./gulpfile.js', function () {
   console.log('Copying over gulpfile.js');
   exec('cp ./jelly/gulp/configs/gulpfile-template.js ./gulpfile.js', processOptions);
+});
 
+copyFile('./tasks/configs/path-builder.js', function () {
   console.log('Creating tasks/configs/path-builder.js');
   exec('mkdir -p ./tasks/configs/', processOptions);
   exec('cp ./jelly/gulp/configs/path-builder-template.js ./tasks/configs/path-builder.js', processOptions);
+});
 
+copyFile('./tasks/configs/webpack/configs.js', function () {
   console.log('Creating webpack configs');
   exec('mkdir -p ./tasks/configs/webpack', processOptions);
   exec('cp ./jelly/gulp/configs/webpack-configs-template.js ./tasks/configs/webpack/configs.js', processOptions);
+});
 
+copyFile('./scripts/index.js', function () {
   console.log('Creating scripts...');
   exec('mkdir -p ./scripts', processOptions);
   exec('touch ./scripts/index.js', processOptions);
+});
 
+copyFile('./styles/main.scss', function () {
   console.log('Creating styles...');
   exec('mkdir -p ./styles', processOptions);
   exec('touch ./styles/main.scss', processOptions);
+});
 
+copyFile('./htmls/index.html', function () {
   console.log('Creating htmls...');
   exec('mkdir -p ./htmls', processOptions);
-  exec('touch ./htmls/index.html', processOptions);
+  exec('cp ./jelly/lib/htmls/index.html ./htmls/index.html', processOptions);
+});
 
+copyFile('.gitignore', function () {
   console.log('Creating gitignore');
   exec('cp ./jelly/gulp/configs/gitignore-template.txt ./.gitignore', processOptions);
-}
+});
 
 configs.announce('May the Jelly be with you!');
 
