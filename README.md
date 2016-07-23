@@ -20,6 +20,7 @@ Features
 
 ###Works on:
 - node v5.1.0
+- node v6.2.2
 
 Installation
 ---------------
