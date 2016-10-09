@@ -1,21 +1,32 @@
-var webpack = require('webpack');
-var paths = require('../path-builder');
-var _ = require('underscore');
+const webpack = require('webpack');
+const paths = require('../path-builder');
+const _ = require('underscore');
 
-var base = {
+const base = {
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.ejs$/, exclude: /node_modules/, loader: 'ejs-compiled' },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['react', 'es2015'],
+        },
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+      },
     ],
   },
   resolve: {
     root: paths.repoRoot,
-    fallback: [paths.repoRoot + '/scripts'],
+    fallback: [paths.scripts],
     alias: {
-      helpers: paths.repoRoot + '/specs/spec_helpers',
-      vendors: paths.repoRoot + '/lib/scripts/vendors',
-      jelly: paths.repoRoot + '/jelly/lib/scripts',
+      styles: paths.styles,
+      helpers: `${paths.repoRoot}/specs/spec_helpers`,
+      vendors: `${paths.repoRoot}/lib/scripts/vendors`,
+      jelly: `${paths.repoRoot}/jelly/lib/scripts`,
     },
   },
   plugins: [
@@ -31,30 +42,35 @@ var base = {
   ],
 };
 
-//////////////////////////////////////////////////
-//
-//                   Exports
-//
-//////////////////////////////////////////////////
-
-var exports = {
+module.exports = {
   dev: _.extend({
-    entry: `${paths.scripts}/index.js`,
-    devtool: 'eval-source-map',
-    watch: true,
+    entry: [
+      `${paths.scripts}/index.js`,
+    ],
+    devtool: 'inline-source-map',
     output: {
-      path: `${paths.dist}scripts`,
+      path: '/',
+      publicPath: '/assets/',
       filename: 'bundle.js',
     },
+    plugins: _.union(base.plugins, [
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.NoErrorsPlugin(),
+    ]),
   }, base),
 
   test: _.extend({
     entry: `${paths.specs}/spec-runner.js`,
     devtool: 'inline-source-map',
     output: {
-      path: `${paths.specs}`,
+      path: '/',
+      publicPath: '/assets/',
       filename: 'spec-bundle.js',
     },
+    plugins: _.union(base.plugins, [
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.NoErrorsPlugin(),
+    ]),
   }, base),
 
   prod: _.extend({
@@ -68,5 +84,3 @@ var exports = {
     ]),
   }, base),
 };
-
-module.exports = exports;
